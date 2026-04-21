@@ -31,6 +31,10 @@ All scripts share the same pattern:
 3. **`build()`** — assembles a multi-row Plotly `make_subplots` figure (dark theme: `paper_bgcolor="#0f1117"`, `plot_bgcolor="#1a1d27"`).
 4. **`main()`** — orchestrates fetch → build → `write_html` → `webbrowser.open`.
 
+## Hardware
+
+[Shelly Pro 3EM](https://www.shelly.com/en-ch/products/product-overview/pro-3-em) — DIN-rail three-phase energy meter (1% accuracy, 120 A CT, Wi-Fi/LAN). Publishes cumulative Wh totals and instantaneous W readings via MQTT → Node-RED → MySQL. Three meters installed: Allgemein (whole house), EG (ground floor), OG (upper floor).
+
 ## Data sources
 
 | Database | Tables used | Content |

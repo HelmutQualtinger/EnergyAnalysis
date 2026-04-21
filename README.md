@@ -4,9 +4,19 @@ Interactive Plotly dashboards for home energy consumption and weather data, back
 
 The main focus is on analyzing energy usage patterns across three meters (whole-house, ground floor, upper floor) and correlating them with local weather conditions in Alstätten, Switzerland. The dashboards include cumulative energy totals, daily consumption patterns, temperature correlations, and more.
 
-The energy measurements are performed with the shelly 3PM meters. They report the present counter values to the server mqtt.beker.club:1883. They are collecected by a nodered instance and written to the MySQL database on beker.club:3306. The weather data is collected from OpenWeatherMap and also stored on the same MySQL database server at an hourly resolution.
+## Hardware
 
+[![Shelly Pro 3EM](https://us.shelly.com/cdn/shop/files/Shelly-Pro-3EM-120-main-image_db4e0c04-4467-4527-af27-15ebf47e0b37_grande.png)](https://www.shelly.com/en-ch/products/product-overview/pro-3-em)
 
+Energy is measured by [**Shelly Pro 3EM**](https://www.shelly.com/en-ch/products/product-overview/pro-3-em) meters — DIN-rail mounted smart three-phase energy monitors. Key specs:
+
+- Measures active/apparent power, voltage, current, and power factor on all three phases simultaneously
+- 1% measurement accuracy, 120 A per phase (CT clamp)
+- Connectivity: Wi-Fi, Ethernet, Bluetooth
+- Reports cumulative totals (`total_act`, Wh) and instantaneous values (`total_act_power`, W) via MQTT to `mqtt.beker.club:1883`
+- A Node-RED instance subscribes and writes readings to MySQL on `beker.club:3306`
+
+Weather data is fetched from OpenWeatherMap and stored on the same server at hourly resolution.
 
 ## Scripts
 
