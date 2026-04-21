@@ -4,6 +4,7 @@ Interactive Plotly dashboards for home energy consumption and weather data, back
 
 The main focus is on analyzing energy usage patterns across three meters (whole-house, ground floor, upper floor) and correlating them with local weather conditions in Alstätten, Switzerland. The dashboards include cumulative energy totals, daily consumption patterns, temperature correlations, and more.
 
+
 ## Scripts
 
 | Script | Output | Description |
@@ -11,7 +12,7 @@ The main focus is on analyzing energy usage patterns across three meters (whole-
 | `plot_shellies.py` | `shellies_energy.html` | Cumulative kWh totals + daily bar chart for all three meters |
 | `plot_3pm_daily.py` | `daily_consumption.html` | 5-panel dashboard: daily kWh, hourly heatmap, peak/avg power, phase voltages, power factor |
 | `plot_alstaetten_temp.py` | `alstaetten_temperature.html` | 4-panel weather dashboard: daily temps, year×DOY heatmap, monthly comparison, humidity |
-| `plot_temp_vs_energy.py` | `temp_vs_energy.html` | Temperature vs. energy correlation (Allgemein only) with density contour and Oct–Apr linear regression |
+| `plot_temp_vs_energy.py` | `temp_vs_energy.html` | Temperature vs. energy correlation with density contour and Oct–Apr linear regression |
 
 ## Usage
 
@@ -55,17 +56,12 @@ DB_USER=root
 DB_PASS=your_password
 ```
 
-## Latest results (21 Apr 2026)
-
-| Dashboard | Coverage | Key finding |
-| --- | --- | --- |
-| Energy totals | 567 days (Oct 2024 – Apr 2026) | All three meters tracked |
-| Daily consumption | 475 days (Jan 2025 – Apr 2026) | Hourly & day-of-week patterns |
-| Temperature | 787 days (Feb 2024 – Apr 2026) | Ø 11.0 °C · min −12.3 °C · max 36.0 °C |
-| Temp vs. energy | 566 overlapping days | r = −0.805 · r² = 0.648 · slope −1.24 kWh/°C (Oct–Apr) |
-
 ## Meters
 
 - **Allgemein** — whole-house main meter
 - **EG** — ground floor (Erdgeschoss)
 - **OG** — upper floor (Obergeschoss)
+
+## Results
+
+We use on average 26 kWh/day for the heat pump when it is 0 degrees outside on average over the day. Every degree more or less in ambient temperature cause the energy consumption to go up by 1.3 kWh or down by 1.3 kWh on average. The correlation is very strong in the heating season (Oct–Apr) with R² = 0.92, but much weaker in the summer months (R² = 0.24) when the heat pump is mostly off and other factors dominate energy usage.  The main usage in summer is warm water production, which is not directly weather-dependent. The dashboard `temp_vs_energy.html` visualizes this relationship with a density contour plot and a linear regression line for the heating season.
