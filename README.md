@@ -55,6 +55,15 @@ DB_USER=root
 DB_PASS=your_password
 ```
 
+## Latest results (21 Apr 2026)
+
+| Dashboard | Coverage | Key finding |
+| --- | --- | --- |
+| Energy totals | 567 days (Oct 2024 – Apr 2026) | All three meters tracked |
+| Daily consumption | 475 days (Jan 2025 – Apr 2026) | Hourly & day-of-week patterns |
+| Temperature | 787 days (Feb 2024 – Apr 2026) | Ø 11.0 °C · min −12.3 °C · max 36.0 °C |
+| Temp vs. energy | 566 overlapping days | r = −0.805 · r² = 0.648 · slope −1.24 kWh/°C (Oct–Apr) |
+
 ## Meters
 
 - **Allgemein** — whole-house main meter
