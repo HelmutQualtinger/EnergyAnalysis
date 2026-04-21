@@ -4,6 +4,10 @@ Interactive Plotly dashboards for home energy consumption and weather data, back
 
 The main focus is on analyzing energy usage patterns across three meters (whole-house, ground floor, upper floor) and correlating them with local weather conditions in Alstätten, Switzerland. The dashboards include cumulative energy totals, daily consumption patterns, temperature correlations, and more.
 
+The energy measurements are performed with [Shelly Pro 3EM](https://www.shelly.com/en-ch/products/product-overview/pro-3-em) meters — DIN-rail mounted Wi-Fi/LAN three-phase energy meters with 1% measurement accuracy. They report present and cumulative counter values via MQTT to `mqtt.beker.club:1883`, where a Node-RED instance collects and writes them to the MySQL database on `beker.club:3306`. Weather data is fetched from OpenWeatherMap and stored on the same server at hourly resolution.
+
+[![Shelly Pro 3EM](https://us.shelly.com/cdn/shop/files/Shelly-Pro-3EM-120-main-image_db4e0c04-4467-4527-af27-15ebf47e0b37_grande.png)](https://www.shelly.com/en-ch/products/product-overview/pro-3-em)
+
 
 ## Scripts
 
