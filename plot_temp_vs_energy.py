@@ -122,8 +122,8 @@ def build(days, temp, energy):
     slope, intercept = float(coef[0]), float(coef[1])
     corr  = float(np.corrcoef(temp[winter], energy[winter])[0, 1])
 
-    roll_t = rolling(temp)
-    roll_e = rolling(energy)
+    roll_t = rolling(temp, w=4)
+    roll_e = rolling(energy, w=4)
 
     # ── Subplots: row1=2D dual, row2=3D scene, row3=2D dual ──────────────────
     fig = make_subplots(
@@ -131,11 +131,11 @@ def build(days, temp, energy):
         row_heights=[0.28, 0.52, 0.20],
         vertical_spacing=0.05,
         subplot_titles=[
-            "① Tagestemperatur (°C) vs. Tagesverbrauch Allgemein (kWh)",
+            "① Wochenmittel: Temperatur (°C) vs. Verbrauch Allgemein (kWh)",
             (f"② Dichte-Kontur: Temperatur (°C) × Verbrauch (kWh)"
              f"   |   Fit Okt–Apr: y = {slope:.3f}·T + {intercept:.2f}  "
              f"r = {corr:.3f}  r² = {corr**2:.3f}"),
-            "③ 7-Tage Glättung: Verbrauch & Temperatur",
+            "③ 4-Wochen Glättung: Verbrauch & Temperatur",
         ],
         specs=[[{"secondary_y": True}],
                [{"secondary_y": False}],
@@ -146,25 +146,25 @@ def build(days, temp, energy):
     fig.add_trace(go.Bar(
         x=days, y=energy, name="Verbrauch (kWh)",
         marker_color="#ff8a65", opacity=0.5,
-        hovertemplate="%{x|%d %b %Y}: %{y:.1f} kWh<extra></extra>",
+        hovertemplate="KW %{x|%d %b %Y}: %{y:.1f} kWh<extra></extra>",
     ), row=1, col=1, secondary_y=False)
 
     fig.add_trace(go.Scatter(
-        x=days, y=roll_e, name="7d Ø Verbrauch",
+        x=days, y=roll_e, name="4-Wochen Ø Verbrauch",
         line=dict(color="#ef6c00", width=2),
-        hovertemplate="7d-Ø: %{y:.1f} kWh<extra></extra>",
+        hovertemplate="4W-Ø: %{y:.1f} kWh<extra></extra>",
     ), row=1, col=1, secondary_y=False)
 
     fig.add_trace(go.Scatter(
         x=days, y=temp, name="Ø Temperatur (°C)",
         line=dict(color="#4fc3f7", width=1.2), opacity=0.7,
-        hovertemplate="%{x|%d %b %Y}: %{y:.1f} °C<extra></extra>",
+        hovertemplate="KW %{x|%d %b %Y}: %{y:.1f} °C<extra></extra>",
     ), row=1, col=1, secondary_y=True)
 
     fig.add_trace(go.Scatter(
-        x=days, y=roll_t, name="7d Ø Temperatur",
+        x=days, y=roll_t, name="4-Wochen Ø Temperatur",
         line=dict(color="#ffe082", width=2, dash="dash"),
-        hovertemplate="7d-Ø: %{y:.1f} °C<extra></extra>",
+        hovertemplate="4W-Ø: %{y:.1f} °C<extra></extra>",
     ), row=1, col=1, secondary_y=True)
 
     fig.add_hline(y=0, row=1, col=1,
@@ -264,7 +264,7 @@ def build(days, temp, energy):
         font=dict(color="#cccccc", size=11),
         height=1350,
         title=dict(
-            text=(f"Altstätten SG — Temperatur vs. Energieverbrauch Allgemein"
+            text=(f"Altstätten SG — Wochenmittel: Temperatur vs. Energieverbrauch Allgemein"
                   f"   (Fit Okt–Apr: r = {corr:.3f},  r² = {corr**2:.3f})"),
             font=dict(size=15), x=0.5,
         ),
@@ -303,12 +303,13 @@ def main():
     energy = fetch_energy()
 
     days, t, e = align(temp, energy)
-    print(f"  {len(days)} overlapping days  "
+    days, t, e = weekly_avg(days, t, e)
+    print(f"  {len(days)} complete weeks  "
           f"({days[0].strftime('%d %b %Y')} – {days[-1].strftime('%d %b %Y')})")
 
     fig, corr, slope, intercept, n_winter = build(days, t, e)
 
-    print(f"\nFit on {n_winter} winter days (Okt–Apr)")
+    print(f"\nFit on {n_winter} winter weeks (Okt–Apr)")
     print(f"Pearson r = {corr:.3f}   r² = {corr**2:.3f}")
     print(f"y = {slope:.3f}·T + {intercept:.2f} kWh")
 

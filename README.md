@@ -4,9 +4,8 @@ Interactive Plotly dashboards for home energy consumption and weather data, back
 
 The main focus is on analyzing energy usage patterns across three meters (whole-house, ground floor, upper floor) and correlating them with local weather conditions in Alstätten, Switzerland. The dashboards include cumulative energy totals, daily consumption patterns, temperature correlations, and more.
 
-The energy measurements are performed with [Shelly Pro 3EM](https://www.shelly.com/en-ch/products/product-overview/pro-3-em) meters — DIN-rail mounted Wi-Fi/LAN three-phase energy meters with 1% measurement accuracy. They report present and cumulative counter values via MQTT to `mqtt.beker.club:1883`, where a Node-RED instance collects and writes them to the MySQL database on `beker.club:3306`. Weather data is fetched from OpenWeatherMap and stored on the same server at hourly resolution.
+The energy measurements are performed with the shelly 3PM meters. They report the present counter values to the server mqtt.beker.club:1883. They are collecected by a nodered instance and written to the MySQL database on beker.club:3306. The weather data is collected from OpenWeatherMap and also stored on the same MySQL database server at an hourly resolution.
 
-[![Shelly Pro 3EM](https://us.shelly.com/cdn/shop/files/Shelly-Pro-3EM-120-main-image_db4e0c04-4467-4527-af27-15ebf47e0b37_grande.png)](https://www.shelly.com/en-ch/products/product-overview/pro-3-em)
 
 
 ## Scripts
@@ -68,4 +67,4 @@ DB_PASS=your_password
 
 ## Results
 
-We use on average 26 kWh/day for the heat pump when it is 0 degrees outside on average over the day. Every degree more or less in ambient temperature cause the energy consumption to go up by 1.3 kWh or down by 1.3 kWh/d on average. The correlation is very strong in the heating season (Oct–Apr) with R² = 0.92, but much weaker in the summer months (R² = 0.24) when the heat pump is mostly off and other factors dominate energy usage.  The main usage in summer is warm water production, which is not directly weather-dependent. The dashboard [`temp_vs_energy.html`](temp_vs_energy.html) visualizes this relationship with a density contour plot and a linear regression line for the heating season. A static export is available as [temp_vs_energy.pdf](temp_vs_energy.pdf).
+We use on average 26 kWh/day for the heat pump when it is 0 degrees outside on average over the day. Every degree more or less in ambient temperature cause the energy consumption to go up by 1.3 kWh or down by 1.3 kWh/d on average. The correlation is very strong in the heating season (Oct–Apr) with R² = 0.92, but much weaker in the summer months (R² = 0.24) when the heat pump is mostly off and other factors dominate energy usage.  The main usage in summer is warm water production, which is not directly weather-dependent. The dashboard `temp_vs_energy.html` visualizes this relationship with a density contour plot and a linear regression line for the heating season.
