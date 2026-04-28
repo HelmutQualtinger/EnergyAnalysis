@@ -26,17 +26,23 @@ Weather data is fetched from OpenWeatherMap and stored on the same server at hou
 | `plot_3pm_daily.py` | `daily_consumption.html` | 5-panel dashboard: daily kWh, hourly heatmap, peak/avg power, phase voltages, power factor |
 | `plot_alstaetten_temp.py` | `alstaetten_temperature.html` | 4-panel weather dashboard: daily temps, year×DOY heatmap, monthly comparison, humidity |
 | `plot_temp_vs_energy.py` | `temp_vs_energy.html` | Temperature vs. energy correlation with density contour and Oct–Apr linear regression |
+| `plot_daily_consumption_all_meters.py` | `daily_consumption_all_meters.html` | Daily consumption by meter: bars + 7d rolling avg, cumulative sum, percentage share |
+| `plot_weekly_consumption_all_meters.py` | `weekly_consumption_all_meters.html` | Weekly consumption (ISO-week smoothed): bars + cumulative sum, stacked percentage |
+| `plot_hourly_consumption.py` | `hourly_consumption.html` | Average consumption by hour of day: consumption bars + power line plot |
 
 ## Usage
 
 ```bash
 # With optional date filter and output path
-python3 plot_shellies.py --since 2025-01-01 --out my_output.html
+uv run python3 plot_shellies.py --since 2025-01-01 --out my_output.html
 
 # All other scripts use hard-coded defaults — just run them
-python3 plot_3pm_daily.py
-python3 plot_alstaetten_temp.py
-python3 plot_temp_vs_energy.py
+uv run python3 plot_3pm_daily.py
+uv run python3 plot_alstaetten_temp.py
+uv run python3 plot_temp_vs_energy.py
+uv run python3 plot_daily_consumption_all_meters.py
+uv run python3 plot_weekly_consumption_all_meters.py
+uv run python3 plot_hourly_consumption.py
 ```
 
 Each script opens the generated HTML file in the default browser automatically.

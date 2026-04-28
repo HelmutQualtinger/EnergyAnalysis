@@ -18,6 +18,9 @@ uv run python3 plot_shellies.py [--since YYYY-MM-DD] [--out FILE.html]
 uv run python3 plot_3pm_daily.py
 uv run python3 plot_alstaetten_temp.py
 uv run python3 plot_temp_vs_energy.py
+uv run python3 plot_daily_consumption_all_meters.py
+uv run python3 plot_weekly_consumption_all_meters.py
+uv run python3 plot_hourly_consumption.py
 ```
 
 Each script fetches data, builds a Plotly figure, writes an `.html` file, and opens it in the browser automatically.
@@ -49,7 +52,10 @@ Energy values in `total_act` are stored in **Wh**; scripts divide by 1000 to get
 
 - All output files are standalone `.html` with `include_plotlyjs="cdn"`.
 - German-language axis labels and subplot titles throughout.
-- `SINCE = "2025-01-01"` hard-coded in `plot_3pm_daily.py` — adjust there to change the analysis window.
+- `SINCE = "2025-01-01"` hard-coded in `plot_3pm_daily.py`, `plot_daily_consumption_all_meters.py`, and `plot_weekly_consumption_all_meters.py` — adjust there to change the analysis window.
 - `plot_temp_vs_energy.py` correlates temperature against the **Allgemein** meter only (not EG/OG).
 - Winter/heating season is defined as months `[10, 11, 12, 1, 2, 3, 4]` (Oct–Apr) in `plot_temp_vs_energy.py`.
 - Row 2 of `plot_temp_vs_energy.py` uses `Histogram2dContour` (density contour), not a surface plot.
+- `plot_daily_consumption_all_meters.py`: shows 3 plots — daily bars + rolling avg, cumulative sum, stacked percentage.
+- `plot_weekly_consumption_all_meters.py`: aggregates daily data to ISO-week averages (complete 7-day weeks only).
+- `plot_hourly_consumption.py`: aggregates across all days; shows average W by hour of day (24 hours).
