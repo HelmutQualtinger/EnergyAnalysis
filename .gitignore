@@ -1,2 +1,9 @@
 .env
 
+prime.py
+__pycache__/
+tests/test_prime.py
+
+# Generated output files
+*.html
+*.pdf
